@@ -2,6 +2,8 @@ package com.opower.persistence.jpile.jdbc;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Throwables;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -22,6 +24,7 @@ import java.sql.Statement;
  * @author ivan.german
  */
 public class ConnectionBasedStatementExecutor implements StatementExecutor {
+    private static final Logger LOG = LoggerFactory.getLogger(ConnectionBasedStatementExecutor.class);
 
     private final Connection connection;
 
@@ -54,6 +57,7 @@ public class ConnectionBasedStatementExecutor implements StatementExecutor {
         }
         catch (SQLException e) {
             // Ignored exception
+            LOG.warn("Exception while force-closing connection", e);
         }
     }
 
@@ -68,7 +72,8 @@ public class ConnectionBasedStatementExecutor implements StatementExecutor {
 
         try (Statement statement = actualConnection.createStatement()) {
             return statementCallback.doInStatement(statement);
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             throw Throwables.propagate(e);
         }
     }
