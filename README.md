@@ -36,7 +36,29 @@ jPile allows the client to configure whether entities are updated when inserting
 
 # How do I run the tests?
 
-jPile needs a local MySQL running and Apache Maven. Create a new database schema called 'jpile' using `CREATE DATABASE jpile CHARACTER SET utf8 COLLATE utf8_general_ci`. The test classes use `root` with no password to login. The username and password is located in `AbstractIntTestForJPile` class.
+jPile needs a local MySQL running and Apache Maven.
+Create a new database schema called 'jpile' using `CREATE DATABASE jpile CHARACTER SET utf8 COLLATE utf8_general_ci`.
+By default, the test classes use `root` with no password to login.
+You can change these settings via the following properties:
+
+<table>
+  <tr>
+    <th>Property</th>
+    <th>Default Value</th>
+  </tr>
+  <tr>
+    <td>testing.jdbc.url</td>
+    <td>jdbc:mysql://localhost/jpile?useUnicode=true&characterEncoding=utf-8</td>
+  </tr>
+  <tr>
+    <td>testing.jdbc.username</td>
+    <td>root</td>
+  </tr>
+  <tr>
+    <td>testing.jdbc.password</td>
+    <td>""</td>
+  </tr>
+</table>
 
 All test cases will automatically create and drop the required tables for integration tests. After creating the local database, you should be able to run `mvn clean install` to run all the tests and install locally.
 

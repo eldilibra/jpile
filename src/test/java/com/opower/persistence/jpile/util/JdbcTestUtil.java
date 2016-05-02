@@ -13,9 +13,9 @@ import java.sql.SQLException;
  */
 public final class JdbcTestUtil {
 
-    private static final String JDBC_URL = "jdbc:mysql://localhost/jpile?useUnicode=true&characterEncoding=utf-8";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "";
+    private static final String DEFAULT_JDBC_URL = "jdbc:mysql://localhost/jpile?useUnicode=true&characterEncoding=utf-8";
+    private static final String DEFAULT_DB_USER = "root";
+    private static final String DEFAULT_DB_PASSWORD = "";
 
     static {
         try {
@@ -38,6 +38,9 @@ public final class JdbcTestUtil {
      * @throws SQLException if connection failed to open
      */
     public static Connection openNewConnection() throws SQLException {
-        return DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASSWORD);
+        return DriverManager.getConnection(
+                System.getProperty("testing.jdbc.url", DEFAULT_JDBC_URL),
+                System.getProperty("testing.jdbc.user", DEFAULT_DB_USER),
+                System.getProperty("testing.jdbc.password", DEFAULT_DB_PASSWORD));
     }
 }

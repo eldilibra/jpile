@@ -1,3 +1,6 @@
+New in 1.8.3
+    Integration tests now support testing.jdbc.user, testing.jdbc.password, testing.jdbc.url properties
+
 New in 1.8.2
     Remove side-effect in constructor of `DataSourceBasedStatementExecutor`. Lazily initialize connection before call to `execute` method
     FIXED possible connection leak in `DataSourceBasedStatementExecutor` class.
